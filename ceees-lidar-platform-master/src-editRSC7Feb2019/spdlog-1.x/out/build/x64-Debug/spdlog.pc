@@ -1,0 +1,6 @@
+prefix=C:/Users/rcoppers/Desktop/Projects/Stabilization Platform/ceees-lidar-platform-master/src-editRSC7Feb2019/spdlog-1.x/out/install/x64-Debug
+includedir=${prefix}/include
+
+Name: spdlog
+Description: Super fast C++ logging library. 
+Version: 1.1.0

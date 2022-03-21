@@ -1,0 +1,5 @@
+<map id="IxxatCANV3" name="IxxatCANV3">
+<area shape="rect" id="node2" href="$classCanInterface.html" title="Abstract class used for low level interaction with CAN hardware. " alt="" coords="5,81,103,108"/>
+<area shape="rect" id="node3" href="$classRefObj.html" title="This class is used to track object references in the CML library. " alt="" coords="23,5,85,32"/>
+<area shape="rect" id="node4" href="$classMutex.html" title="This class represents an object that can be used by multiple threads to gain safe access to a shared ..." alt="" coords="127,81,186,108"/>
+</map>

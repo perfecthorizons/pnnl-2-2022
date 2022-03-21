@@ -1,0 +1,49 @@
+<map id="CML_Reference.h" name="CML_Reference.h">
+<area shape="rect" id="node2" href="$CML__Can_8h.html" title="This file contains the base classes used to define the low level interface to the CAN network hardwar..." alt="" coords="1651,80,1743,107"/>
+<area shape="rect" id="node3" href="$CML__Network_8h.html" title="This header file defines the classes used for the generic top level network interface. " alt="" coords="1455,155,1573,181"/>
+<area shape="rect" id="node8" href="$CML_8h.html" title="Top level include file for the CML libraries. " alt="" coords="1609,603,1670,629"/>
+<area shape="rect" id="node39" href="$CML__Node_8h.html" title="This header file defines the classes that define a generic node on the network. " alt="" coords="1498,304,1597,331"/>
+<area shape="rect" id="node46" href="$CML__PDO_8h.html" title="This header file defines the classes used to communicate to CANopen nodes using Process Data Objects ..." alt="" coords="1821,229,1919,256"/>
+<area shape="rect" id="node44" href="$CML__CanOpen_8h.html" title="This header file defines the classes used for the top level of the CANopen network. " alt="" coords="1635,229,1758,256"/>
+<area shape="rect" id="node47" href="$can__copley_8h.html" title="CAN hardware interface for the Copley Controls CAN card. " alt="" coords="1647,155,1746,181"/>
+<area shape="rect" id="node48" href="$can__kvaser_8h.html" title="CAN hardware interface for the Kvaser CAN driver. " alt="" coords="1771,155,1871,181"/>
+<area shape="rect" id="node4" href="$CML__SDO_8h.html" title="This header file defines the classes used to communicate to CANopen nodes using Service Data Objects ..." alt="" coords="1144,229,1241,256"/>
+<area shape="rect" id="node7" href="$CML__Amp_8h.html" title="This file defines the Copley Amplifier object. " alt="" coords="1376,453,1471,480"/>
+<area shape="rect" id="node43" href="$Network_8cpp.html" title="This file holds code for the top level CANopen class. " alt="" coords="1322,379,1418,405"/>
+<area shape="rect" id="node45" href="$CML__EtherCAT_8h.html" title="This header file defines the classes used to represent the top level of the EtherCAT network interfac..." alt="" coords="1484,229,1611,256"/>
+<area shape="rect" id="node5" href="$CML__Filter_8h.html" title="This file defines the Filter object. " alt="" coords="1161,304,1259,331"/>
+<area shape="rect" id="node38" href="$CML__InputShaper_8h.html" title="This file defines the InputShaper object. " alt="" coords="998,304,1137,331"/>
+<area shape="rect" id="node6" href="$CML__AmpStruct_8h.html" title="This file contains a number of structures used to pass configuration parameters to an Amp object..." alt="" coords="1117,379,1247,405"/>
+<area shape="rect" id="node37" href="$CML__Linkage_8h.html" title="This file defines the Linkage object. " alt="" coords="1336,528,1449,555"/>
+<area shape="rect" id="node9" href="$Amp_8cpp.html" title="This file provides most of the implementation for the Copley Amplifier object. " alt="" coords="2858,677,2933,704"/>
+<area shape="rect" id="node10" href="$AmpFile_8cpp.html" title="This file contains code used to read CME&#45;2 .ccx and .ccd amplifier files. " alt="" coords="2957,677,3052,704"/>
+<area shape="rect" id="node11" href="$AmpFW_8cpp.html" title="This file contains code used to update an amplifier&#39;s firmware over the CANopen network. " alt="" coords="5,677,100,704"/>
+<area shape="rect" id="node12" href="$AmpParam_8cpp.html" title="This file contains the AMP object methods used to upload / download various amplifier parameters..." alt="" coords="3077,677,3189,704"/>
+<area shape="rect" id="node13" href="$AmpPDO_8cpp.html" title="This file contains code that implements PDO objects used by the Copley Controls amplifier object..." alt="" coords="3213,677,3316,704"/>
+<area shape="rect" id="node14" href="$AmpPVT_8cpp.html" title="This file contains the code used by the Amp object to stream PVT trajectory profiles over the CANopen..." alt="" coords="124,677,224,704"/>
+<area shape="rect" id="node15" href="$AmpStruct_8cpp.html" title="This file contains the AMP object methods used to upload / download structures containing groups of a..." alt="" coords="249,677,358,704"/>
+<area shape="rect" id="node16" href="$AmpUnits_8cpp.html" title="This file contains the AMP object methods used to handle unit conversions. " alt="" coords="383,677,488,704"/>
+<area shape="rect" id="node17" href="$AmpVersion_8cpp.html" title="This file contains some rules used by the Amp object to determine if certain features are supported b..." alt="" coords="512,677,631,704"/>
+<area shape="rect" id="node18" href="$Can_8cpp.html" title="This file handles the initialization of the static variables (error codes) used by the CanError and C..." alt="" coords="655,677,725,704"/>
+<area shape="rect" id="node19" href="$CanOpen_8cpp.html" title="This file holds code for the top level CANopen class. " alt="" coords="749,677,852,704"/>
+<area shape="rect" id="node20" href="$CML_8cpp.html" title="CML object definition. " alt="" coords="877,677,951,704"/>
+<area shape="rect" id="node21" href="$CopleyIO_8cpp.html" title="This file contains the CopleyIO object methods used to upload / download structures containing groups..." alt="" coords="976,677,1079,704"/>
+<area shape="rect" id="node22" href="$CopleyNode_8cpp.html" title="This file holds code to implement the CopleyNode object. " alt="" coords="1103,677,1221,704"/>
+<area shape="rect" id="node23" href="$ecatdc_8cpp.html" title="This file holds some utility code used by the EtherCAT network when initializing it&#39;s distributed clo..." alt="" coords="1245,677,1332,704"/>
+<area shape="rect" id="node24" href="$Error_8cpp.html" title="This file handles initializing the static data objects used by the Error class. " alt="" coords="1357,677,1431,704"/>
+<area shape="rect" id="node25" href="$EtherCAT_8cpp.html" title="This file holds code for the top level EtherCAT class. " alt="" coords="1456,677,1561,704"/>
+<area shape="rect" id="node26" href="$EventMap_8cpp.html" title="This file contains the implementation of the EventMap class. " alt="" coords="1586,677,1693,704"/>
+<area shape="rect" id="node27" href="$File_8cpp.html" title="This file contains code used to parse CME&#45;2 type files. " alt="" coords="1717,677,1785,704"/>
+<area shape="rect" id="node28" href="$Filter_8cpp.html" title="Implementation of the Filter class. " alt="" coords="1809,677,1885,704"/>
+<area shape="rect" id="node29" href="$Geometry_8cpp.html" title="Geometry.cpp" alt="" coords="1910,677,2014,704"/>
+<area shape="rect" id="node30" href="$InputShaper_8cpp.html" title="Implementation of the InputShaper class. " alt="" coords="2038,677,2155,704"/>
+<area shape="rect" id="node31" href="$IOmodule_8cpp.html" title="I/O module object support. " alt="" coords="2180,677,2283,704"/>
+<area shape="rect" id="node32" href="$Linkage_8cpp.html" title="Implementation of the Linkage class. " alt="" coords="2307,677,2399,704"/>
+<area shape="rect" id="node33" href="$Node_8cpp.html" title="This file holds code to implement the CANopen node related objects. " alt="" coords="2423,677,2501,704"/>
+<area shape="rect" id="node34" href="$PDO_8cpp.html" title="This file holds the code needed to implement CANopen Process Data Objects (PDOs). ..." alt="" coords="2525,677,2601,704"/>
+<area shape="rect" id="node35" href="$Reference_8cpp.html" title="This file holds the code needed to implement the CML reference counting objects. " alt="" coords="2626,677,2733,704"/>
+<area shape="rect" id="node36" href="$SDO_8cpp.html" title="This file contains the code used to implement the CANopen SDO objects. " alt="" coords="2757,677,2833,704"/>
+<area shape="rect" id="node40" href="$CML__Copley_8h.html" title="This header file defines a generic Copley node type. " alt="" coords="1442,379,1551,405"/>
+<area shape="rect" id="node41" href="$CML__CopleyIO_8h.html" title="Standard CANopen I/O module support. " alt="" coords="1839,453,1962,480"/>
+<area shape="rect" id="node42" href="$CML__IO_8h.html" title="Standard CANopen I/O module support. " alt="" coords="1829,379,1911,405"/>
+</map>

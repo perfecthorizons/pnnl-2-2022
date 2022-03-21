@@ -1,0 +1,5 @@
+<map id="PointN" name="PointN">
+<area shape="rect" id="node2" href="$classPoint.html" title="Template used for N dimensional objects. " alt="" coords="185,81,271,108"/>
+<area shape="rect" id="node3" href="$classPoint.html" title="Point\&lt; CML_MAX_AMPS\l_PER_LINK \&gt;" alt="" coords="5,185,179,227"/>
+<area shape="rect" id="node4" href="$classPoint.html" title="Point\&lt; PATH_MAX_DIMENSIONS \&gt;" alt="" coords="205,193,446,219"/>
+</map>

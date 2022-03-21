@@ -1,0 +1,26 @@
+<map id="AmpConfig" name="AmpConfig">
+<area shape="rect" id="node2" href="$structServoLoopConfig.html" title="This structure holds configuration info about specific parts of the velocity and position loops..." alt="" coords="12,12,135,39"/>
+<area shape="rect" id="node3" href="$classInputShaper.html" title="Generic input shaper structure. " alt="" coords="27,63,119,89"/>
+<area shape="rect" id="node4" href="$structSoftPosLimit.html" title="Software limit switch configuration. " alt="" coords="25,113,122,140"/>
+<area shape="rect" id="node5" href="$structFuncGenConfig.html" title="Configuration parameters for amplifier&#39;s internal function generator. " alt="" coords="17,164,130,191"/>
+<area shape="rect" id="node6" href="$structCanNetworkConfig.html" title="CANopen Node ID and bit rate configuration. " alt="" coords="7,215,140,241"/>
+<area shape="rect" id="node7" href="$structDAConfig.html" title="Configuration structure used to hold the settings for a drive&#39;s D/A converter. " alt="" coords="34,265,113,292"/>
+<area shape="rect" id="node8" href="$classFilter.html" title="Generic filter structure. " alt="" coords="48,361,99,388"/>
+<area shape="rect" id="node9" href="$structPwmInConfig.html" title="PWM or Pulse/Direction input configuration. " alt="" coords="23,412,124,439"/>
+<area shape="rect" id="node10" href="$structVelLoopConfig.html" title="This structure holds the velocity loop configuration parameters specific to the Copley amplifier..." alt="" coords="20,463,127,489"/>
+<area shape="rect" id="node11" href="$structEncoderErrorConfig.html" title="This structure holds configuration info about the encoder error filter. " alt="" coords="5,513,141,540"/>
+<area shape="rect" id="node12" href="$structCammingConfig.html" title="Configuration structure used to set up the camming. " alt="" coords="15,564,131,591"/>
+<area shape="rect" id="node13" href="$structCrntLoopConfig.html" title="This structure holds the current loop configuration parameters. " alt="" coords="17,615,130,641"/>
+<area shape="rect" id="node14" href="$structTrackingWindows.html" title="Position and velocity error windows. " alt="" coords="10,665,137,692"/>
+<area shape="rect" id="node15" href="$structGainScheduling.html" title="Configuration structure used to set up the Gain Scheduling. " alt="" coords="17,716,130,743"/>
+<area shape="rect" id="node16" href="$structRegenConfig.html" title="Configuration structure used to set up the amplifier regeneration resister. " alt="" coords="24,767,123,793"/>
+<area shape="rect" id="node17" href="$structMtrInfo.html" title="Motor information structure. " alt="" coords="42,817,105,844"/>
+<area shape="rect" id="node18" href="$structNetworkOptions.html" title="Configuration structure used to configure the amplifiers network support. " alt="" coords="15,868,131,895"/>
+<area shape="rect" id="node19" href="$structHomeConfig.html" title="Homing parameter structure. " alt="" coords="26,919,121,945"/>
+<area shape="rect" id="node20" href="$structAmpIoCfg.html" title="Programmable I/O pin configuration. " alt="" coords="33,969,114,996"/>
+<area shape="rect" id="node21" href="$structUstepConfig.html" title="Configuration structure used to set up the microstepper. " alt="" coords="26,1020,121,1047"/>
+<area shape="rect" id="node22" href="$structAlgoPhaseInit.html" title="Configuration structure used to set up algorithmic phase init. " alt="" coords="22,1071,125,1097"/>
+<area shape="rect" id="node23" href="$structAnalogRefConfig.html" title="Analog input configuration. " alt="" coords="13,1121,134,1148"/>
+<area shape="rect" id="node24" href="$structProfileConfig.html" title="Amplifier profile parameters. " alt="" coords="25,1172,122,1199"/>
+<area shape="rect" id="node25" href="$structPosLoopConfig.html" title="This structure holds the position loop configuration parameters specific to the Copley amplifier..." alt="" coords="18,1223,129,1249"/>
+</map>

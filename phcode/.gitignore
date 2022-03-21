@@ -1,0 +1,9 @@
+*.o
+*.swp
+bin/*
+cml.log*
+lib-src/xspublic/*/*.d
+lib-src/xspublic/*/*.dpp
+lib-src/xspublic/*/*.a
+lib-src/*.o
+src/*_old.cpp

@@ -1,0 +1,3 @@
+C:/Users/rcoppers/Desktop/Projects/Stabilization Platform/ceees-lidar-platform-master/lib-src/vnproglib-1.1/cpp/out/build/x64-Debug/CMakeFiles/libvncxx.dir
+C:/Users/rcoppers/Desktop/Projects/Stabilization Platform/ceees-lidar-platform-master/lib-src/vnproglib-1.1/cpp/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/rcoppers/Desktop/Projects/Stabilization Platform/ceees-lidar-platform-master/lib-src/vnproglib-1.1/cpp/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

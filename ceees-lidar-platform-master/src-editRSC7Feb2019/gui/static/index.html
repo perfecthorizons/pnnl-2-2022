@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Casper2 Control Panel</title>
+    <link rel="stylesheet" type="text/css" href="/static/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/static/skeleton.css" />
+    <link rel="stylesheet" type="text/css" href="/static/index.css" />
+    <link rel="stylesheet" type="text/css" href="/static/font-awesome.min.css" />
+
+
+    <script src="/static/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/static/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/index.js" type="text/javascript"></script>
+    <script src="/static/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io('http://raspberrypi.lan:3000');
+      socket.on('connect', function(){});
+      socket.on('casper', function(data){
+        var msg = data.split(':');
+        $('#messages-area').prepend('<tr class="message ' + msg[0] + '"><td class="type">' + msg[0] + '</td><td class="text">' + data.substring(msg[0].length + 1) + '</td></tr>');
+        //console.log(data);
+      });
+      socket.on('disconnect', function(){});
+      $(document).ready(function() {
+        $(".message-filter").click(function() {
+          //$(this).toggleClass('filtering');
+          var message_class = $(this).attr('for');
+          $('#messages-area').toggleClass(message_class);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container tab-container">
+      <div class="row">
+        <div class="three columns">
+          <input type="radio" name="tab-select" id="home" class="html-state" checked>
+          <label for="home" class="button u-full-width">Home</label>
+        </div>
+        <div class="three columns">
+          <input type="radio" name="tab-select" id="motion" class="html-state">
+          <label for="motion" class="button u-full-width">Motion Settings</label>
+        </div>
+        <div class="three columns">
+          <input type="radio" name="tab-select" id="logging" class="html-state">
+          <label for="logging" class="button u-full-width">Logging Settings</label>
+        </div>
+        <div class="three columns">
+          <input type="radio" name="tab-select" id="messages" class="html-state">
+          <label for="messages" class="button u-full-width">Messages</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="twelve columns tab" id="home-tab">
+          <div class="container">
+            <div class="row">
+              <div class="six columns">
+                <h5>Machine State: <span id="machine-state">Stopped</span></h5>
+              </div>
+              <div class="six columns">
+                <a href="#" class="update-link u-pull-right"><span class="updating"><i class="fa fa-cog fa-spin fa-fw"></i><span class="sr-only">Loading...</span></span><span class="not-updating">Update</span></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="six columns">
+                <label for="casper-start" class="button u-full-width start-button">Start</label>
+              </div>
+              <div class="six columns">
+                <label for="casper-stop" class="button u-full-width stop-button">Stop</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="twelve columns tab" id="motion-tab">
+          <div class="container">
+            <div class="row">
+              <div class="twelve columns">
+                <h5>Transform Function</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="twelve columns">
+                The transform function <i>must</i> have the following function signature:
+                <pre class="inline-code">std::map sensor_transform(std::map &amp;);</pre>
+                where each map has <i>all</i> of the following keys:
+                <ul class="tag-list texttt">
+                  <li>yaw</li>
+                  <li>pitch</li>
+                  <li>roll</li>
+                  <li>magnetic_x</li>
+                  <li>magnetic_y</li>
+                  <li>magnetic_z</li>
+                  <li>acceleration_x</li>
+                  <li>acceleration_y</li>
+                  <li>acceleration_z</li>
+                  <li>angular_acceleration_x</li>
+                  <li>angular_acceleration_y</li>
+                  <li>angular_acceleration_z</li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="twelve columns">
+                <pre id="transform-function"></pre>
+              </div>
+            </div>
+            <div class="row">
+              <div class="three columns">
+                <button id="compile" class="u-full-width">Compile</button>
+              </div>
+              <div class="three columns">
+                <button id="test" class="u-full-width">Test</button>
+              </div>
+              <div class="three columns">
+                <button id="inject" class="u-full-width">Inject</button>
+              </div>
+              <div class="three columns">
+                <button id="reload" class="u-full-width">Discard</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="twelve columns tab" id="logging-tab">
+          <div class="container">
+            <div class="row">
+              <div class="twelve columns">
+                <p>
+                  VectorNav Data to record:<span id="logging-opt-saving" class="u-pull-right"><i class="fa fa-cog fa-spin fa-fw"></i>Saving...</span>
+                  <ul class="tag-list button-list">
+                    <li>
+                      <input type="checkbox" name="opt-sys-time" id="opt-sys-time" class="html-state">
+                      <label for="opt-sys-time">System Time</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-gps-time" id="opt-gps-time" class="html-state">
+                      <label for="opt-gps-time">GPS Time</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-yaw" id="opt-yaw" class="html-state">
+                      <label for="opt-yaw">Yaw</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-pitch" id="opt-pitch" class="html-state">
+                      <label for="opt-pitch">Pitch</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-roll" id="opt-roll" class="html-state">
+                      <label for="opt-roll">Roll</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-mag-x" id="opt-mag-x" class="html-state">
+                      <label for="opt-mag-x">Magnetic X</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-" id="opt-" class="html-state">
+                      <label for="opt-">Magnetic Y</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-mag-z" id="opt-mag-z" class="html-state">
+                      <label for="opt-mag-z">Magnetic Z</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-acc-x" id="opt-acc-x" class="html-state">
+                      <label for="opt-acc-x">Acceleration X</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-acc-y" id="opt-acc-y" class="html-state">
+                      <label for="opt-acc-y">Acceleration Y</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-acc-z" id="opt-acc-z" class="html-state">
+                      <label for="opt-acc-z">Acceleration Z</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-ang-x" id="opt-ang-x" class="html-state">
+                      <label for="opt-ang-x">Angular X</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-ang-y" id="opt-ang-y" class="html-state">
+                      <label for="opt-ang-y">Angular Y</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="opt-ang-z" id="opt-ang-z" class="html-state">
+                      <label for="opt-ang-z">Angular Z</label>
+                    </li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="twelve columns">
+                If Casper is running, you must stop and start the Casper Controller for these changes to take effect.
+              </div>
+            </div>
+            <div class="row">
+              <div class="twelve columns">
+                Sampling Frequency: <input type="number" name="sampling-frequency" id="sampling-frequency" value="5"> Hz
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="twelve columns tab" id="messages-tab">
+          <div class="container">
+            <div class="row">
+              <div class="three columns">
+                <input type="checkbox" id="hide-DIAGNOSTIC" class="html-state" checked>
+                <label class="button u-full-width message-filter" for="hide-DIAGNOSTIC">
+                  Diagnostic
+                </label>
+              </div>
+              <div class="three columns">
+                <input type="checkbox" id="hide-FATAL-ERROR" class="html-state" checked>
+                <label class="button u-full-width message-filter" for="hide-FATAL-ERROR">
+                  Fatal Error
+                </label>
+              </div>
+              <div class="three columns">
+                <input type="checkbox" id="hide-NON-FATAL-ERROR" class="html-state" checked>
+                <label class="button u-full-width message-filter" for="hide-NON-FATAL-ERROR">
+                  Non-Fatal Error
+                </label>
+              </div>
+              <div class="three columns">
+                <input type="checkbox" id="hide-WARNING" class="html-state" checked>
+                <label class="button u-full-width message-filter" for="hide-WARNING">
+                  Warning
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <table class="twelve columns" id="messages-area">
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

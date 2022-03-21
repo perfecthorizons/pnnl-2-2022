@@ -1,0 +1,38 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classRefObj.html" title="This class is used to track object references in the CML library. " alt="" coords="5,436,68,463"/>
+<area shape="rect" id="node2" href="$classCanInterface.html" title="Abstract class used for low level interaction with CAN hardware. " alt="" coords="133,208,230,235"/>
+<area shape="rect" id="node7" href="$classEcatFrame.html" title="EtherCAT frame class. " alt="" coords="138,360,225,387"/>
+<area shape="rect" id="node8" href="$classEtherCatHardware.html" title="Low level Ethernet hardware interface. " alt="" coords="116,411,247,437"/>
+<area shape="rect" id="node12" href="$classLinkage.html" title="Linkage object, used for controlling a group of coordinated amplifiers. " alt="" coords="148,765,215,792"/>
+<area shape="rect" id="node13" href="$classLinkTrajectory.html" title="Linkage trajectory. " alt="" coords="129,461,233,488"/>
+<area shape="rect" id="node16" href="$classNetwork.html" title="Abstract network class. " alt="" coords="146,715,217,741"/>
+<area shape="rect" id="node19" href="$classNode.html" title="Node class. " alt="" coords="155,563,208,589"/>
+<area shape="rect" id="node24" href="$classPDO.html" title="PDO (Process Data Object) base class. " alt="" coords="156,664,207,691"/>
+<area shape="rect" id="node32" href="$classReceiver.html" title="CANopen receiver object. " alt="" coords="144,31,219,57"/>
+<area shape="rect" id="node34" href="$classTrajectory.html" title="Trajectory information class. " alt="" coords="141,107,221,133"/>
+<area shape="rect" id="node3" href="$classCopleyCAN.html" title="This class extends the generic CanInterface class into a working interface for the Copley can device ..." alt="" coords="325,259,417,285"/>
+<area shape="rect" id="node4" href="$classIxxatCAN.html" title="Ixxat specific CAN interface. " alt="" coords="331,107,411,133"/>
+<area shape="rect" id="node5" href="$classIxxatCANV3.html" title="Ixxat specific CAN interface. " alt="" coords="323,157,419,184"/>
+<area shape="rect" id="node6" href="$classKvaserCAN.html" title="Kvaser specific CAN interface. " alt="" coords="325,208,417,235"/>
+<area shape="rect" id="node9" href="$classLinuxEcatHardware.html" title="This class provides an interface to the Ethernet ports on a linux system. " alt="" coords="303,309,439,336"/>
+<area shape="rect" id="node10" href="$classPcapEcatHardware.html" title="This class provides an interface to the Ethernet ports on a Windows system using the winpcap library..." alt="" coords="303,360,438,387"/>
+<area shape="rect" id="node11" href="$classWinUdpEcatHardware.html" title="This class provides an interface to the Ethernet ports on a windows system. " alt="" coords="295,411,447,437"/>
+<area shape="rect" id="node14" href="$classLinkTrjScurve.html" title="Multi&#45;axis s&#45;curve profile. " alt="" coords="319,512,422,539"/>
+<area shape="rect" id="node15" href="$classPath.html" title="Multi&#45;axis complex trajectory path. " alt="" coords="346,461,395,488"/>
+<area shape="rect" id="node17" href="$classCanOpen.html" title="The CanOpen class is the top level interface into the CANopen network. " alt="" coords="332,816,409,843"/>
+<area shape="rect" id="node18" href="$classEtherCAT.html" title="The EtherCAT class is the top level interface into the EtherCAT network. " alt="" coords="331,765,411,792"/>
+<area shape="rect" id="node20" href="$classCopleyNode.html" title="Copley CANopen Node class. " alt="" coords="323,613,418,640"/>
+<area shape="rect" id="node22" href="$classIOModule.html" title="Standard CANopen I/O module. " alt="" coords="331,563,410,589"/>
+<area shape="rect" id="node21" href="$classAmp.html" title="Copley Controls amplifier object. " alt="" coords="548,563,597,589"/>
+<area shape="rect" id="node23" href="$classCopleyIO.html" title="This class represents a Copley CANopen I/O module. " alt="" coords="534,512,611,539"/>
+<area shape="rect" id="node25" href="$classRPDO.html" title="Receive PDO (received by node, transmitted by this software). " alt="" coords="340,715,401,741"/>
+<area shape="rect" id="node29" href="$classTPDO.html" title="Transmit PDO (transmitted by node, received by this software). " alt="" coords="341,664,400,691"/>
+<area shape="rect" id="node26" href="$classIOModule_1_1AlgOutPDO.html" title="Receive PDO for mapping analog outputs. " alt="" coords="495,816,650,843"/>
+<area shape="rect" id="node27" href="$classIOModule_1_1DigOutPDO.html" title="Receive PDO for mapping digital output pins. " alt="" coords="495,715,651,741"/>
+<area shape="rect" id="node28" href="$classRPDO__LinkCtrl.html" title="Receive PDO used to update the control word of all amplifiers in the linkage. " alt="" coords="516,765,629,792"/>
+<area shape="rect" id="node30" href="$classIOModule_1_1AlgInPDO.html" title="Transmit PDO for mapping analog inputs. " alt="" coords="500,664,645,691"/>
+<area shape="rect" id="node31" href="$classIOModule_1_1DigInPDO.html" title="Transmit PDO for mapping digital inputs. " alt="" coords="499,613,646,640"/>
+<area shape="rect" id="node33" href="$classLSS.html" title="CANopen Layer Setting Services object. " alt="" coords="347,5,394,32"/>
+<area shape="rect" id="node35" href="$classTrjScurve.html" title="Asymmetric S&#45;curve profile generator. " alt="" coords="331,56,410,83"/>
+<area shape="rect" id="node36" href="$classThread.html" title="Virtual class which provides multi&#45;tasking. " alt="" coords="5,791,68,817"/>
+</map>

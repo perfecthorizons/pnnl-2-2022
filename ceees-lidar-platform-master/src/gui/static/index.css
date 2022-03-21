@@ -1,0 +1,133 @@
+
+.update-link {
+  color: #888;
+  font-size: 0.8em;
+  position: absolute;
+  top: 25px;
+  right: 0;
+  transform: translate(0, -50%)
+}
+
+.html-state {
+  display: none;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.error {
+  color: #E22;
+}
+
+.html-state:not(:checked) + .button {
+  color: #333;
+  border-color: #888;
+  outline: 0;
+}
+
+.html-state:checked + .button {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB;
+}
+
+.tab-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: calc(100vh - 20px);
+}
+
+.tab {
+  min-height: 10px;
+  width: 100%;
+  border: 1px solid #888;
+  border-radius: 4px;
+  padding: 40px 0;
+}
+
+.button-list li label {
+  display: inline-block;
+  font-size: 0.8em;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 3px;
+}
+
+.start-button,
+.button-list li input:checked + label {
+  box-shadow: rgb(154, 204, 133) 0px 1px 0px 0px inset;
+  background: linear-gradient(rgb(69, 208, 27) 5%, rgb(51, 188, 21) 100%) rgb(69, 208, 27);
+  border: 1px solid rgb(59, 110, 34);
+  color: #FFF;
+  text-decoration: none;
+}
+
+.start-button:hover,
+.button-list li input:checked + label:hover {
+  background: linear-gradient(rgb(51, 188, 21) 5%, rgb(69, 208, 27) 100%) rgb(69, 208, 27);
+  color: #FFF;
+}
+
+.start-button:active,
+.stop-button:active
+.button-list li input + label:active  {
+  position: relative;
+  top: 2px;
+}
+
+.stop-button,
+.button-list li input:not(:checked) + label {
+  box-shadow: rgb(207, 134, 108) 0px 1px 0px 0px inset;
+  background: linear-gradient(rgb(208, 69, 27) 5%, rgb(188, 51, 21) 100%) rgb(208, 69, 27);
+  border: 1px solid rgb(148, 41, 17);
+  color: #FFF;
+  text-decoration: none;
+}
+
+.stop-button:hover,
+.button-list li input:not(:checked) + label:hover {
+  background: linear-gradient(rgb(188, 51, 21) 5%, rgb(208, 69, 27) 100%) rgb(208, 69, 27);
+  color: #FFF;
+  cursor: pointer;
+  user-select: none;
+}
+
+.inline-code {
+  margin: 0;
+  text-align: center;
+}
+
+.tag-list {
+  list-style-type: none;
+  max-width: 95%;
+  margin: 0 2.5%;
+  text-align: center;
+}
+
+.tag-list * {
+  float: center;
+  display: inline;
+  margin: 0 8px;
+}
+
+.texttt * {
+  font-family: monospace;
+}
+
+#transform-function {
+  min-height: 300px;
+}
+
+#messages-area {
+  overflow-y: auto;
+  max-height: 75vh;
+}
+
+table.hide-DIAGNOSTIC tr.message.DIAGNOSTIC,
+table.hide-FATAL-ERROR tr.message.FATAL.ERROR,
+table.hide-NON-FATAL-ERROR tr.message.NON-FATAL.ERROR,
+table.hide-WARNING tr.message.WARNING {
+  display: none;
+}

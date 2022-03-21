@@ -1,0 +1,15 @@
+<map id="CopleyIO" name="CopleyIO">
+<area shape="rect" id="node2" href="$classIOModule.html" title="Standard CANopen I/O module. " alt="" coords="230,336,309,363"/>
+<area shape="rect" id="node3" href="$classNode.html" title="Node class. " alt="" coords="5,95,59,121"/>
+<area shape="rect" id="node4" href="$classRefObj.html" title="This class is used to track object references in the CML library. " alt="" coords="82,5,145,32"/>
+<area shape="rect" id="node8" href="$classPDO.html" title="PDO (Process Data Object) base class. " alt="" coords="172,95,223,121"/>
+<area shape="rect" id="node5" href="$classSDO.html" title="CANopen Service Data Object (SDO). " alt="" coords="7,5,57,32"/>
+<area shape="rect" id="node6" href="$classIOModule_1_1DigInPDO.html" title="Transmit PDO for mapping digital inputs. " alt="" coords="391,247,473,273"/>
+<area shape="rect" id="node7" href="$classTPDO.html" title="Transmit PDO (transmitted by node, received by this software). " alt="" coords="296,171,355,197"/>
+<area shape="rect" id="node13" href="$classIOModule_1_1AlgInPDO.html" title="Transmit PDO for mapping analog inputs. " alt="" coords="285,247,366,273"/>
+<area shape="rect" id="node11" href="$classRPDO.html" title="Receive PDO (received by node, transmitted by this software). " alt="" coords="167,171,228,197"/>
+<area shape="rect" id="node9" href="$classPmap.html" title="This class allows variables to be mapped into a PDO. " alt="" coords="169,5,225,32"/>
+<area shape="rect" id="node10" href="$classIOModule_1_1DigOutPDO.html" title="Receive PDO for mapping digital output pins. " alt="" coords="169,247,261,273"/>
+<area shape="rect" id="node12" href="$classIOModule_1_1AlgOutPDO.html" title="Receive PDO for mapping analog outputs. " alt="" coords="53,247,144,273"/>
+<area shape="rect" id="node14" href="$classEventMap.html" title="An event map is a mechanism that allows one or more threads to wait on some pre&#45;defined event..." alt="" coords="498,247,579,273"/>
+</map>

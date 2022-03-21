@@ -1,0 +1,338 @@
+/** \file
+
+The following is an example of how to load PVT points to a dual axis drive
+to start a linkage move. The points are generated using two lists in lines
+52 to 72, each containing a list of positions for each axis. The PVT move 
+is peformed twice.
+
+The example contains an algorithm that calculates velocities which will
+produce constant accel/decel values. The velocities are calculated using 
+the positions in the lists and the time between each PVT point.
+
+There is an example of an SDO Download and an SDO Upload in lines 287-302.
+SDO's are used to asynchronously read and send data.
+
+*/
+
+// Comment this out to use EtherCAT
+#define USE_CAN
+
+#include <cstdio>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <list>
+#include<iterator> // for iterators 
+#include<vector> // for vectors 
+#include "CML.h"
+
+#if defined( USE_CAN )
+#include "can/can_copley.h"
+#elif defined( WIN32 )
+#include "ecat/ecat_winudp.h"
+#else
+#include "ecat/ecat_linux.h"
+#endif
+
+// If a namespace has been defined in CML_Settings.h, this
+// macros starts using it. 
+CML_NAMESPACE_USE();
+
+/* local functions */
+static void showerr(const Error* err, const char* str);
+
+/* local data */
+int32 canBPS = 1000000;             // CAN network bit rate
+int16 canNodeID = 1;                // CANopen node ID
+
+std::list<double> Velocity_List_Axis_A;
+std::list<double> Velocity_List_Axis_B;
+
+std::list<double> Position_List_Axis_A = { 0,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,
+9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,
+6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,
+2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,
+2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,
+5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,
+8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,
+9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,
+5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,
+1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,0 };
+
+std::list<double> Position_List_Axis_B = { 0,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,
+9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,
+6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,
+2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,
+2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,
+5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,
+8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,
+9000,8000,7000,6000,5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,
+5000,4000,3000,2000,1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,
+1000,1000,1000,2000,3000,4000,5000,5000,5000,6000,7000,8000,10000,12000,11000,10000,9000,8000,7000,6000,5000,4000,3000,2000,1000,0 };
+
+using namespace std;
+
+class PVT_Constant_Accel : public LinkTrajectory {
+	list<double> list_of_positions_axis_A, list_of_velocities_axis_A, list_of_positions_axis_B, list_of_velocities_axis_B;
+	double next_position_axis_A, next_velocity_axis_A, next_position_axis_B, next_velocity_axis_B;
+	list<double>::iterator position_pointer_axis_A, velocity_pointer_axis_A, position_pointer_axis_B, velocity_pointer_axis_B;
+	uint8 Time;
+public:
+
+	int GetDim(void) { return 2; }  // 2 axis linkage (2 dimensions) so return 2 
+	bool UseVelocityInfo(void) { return true; } // PVT moves so velocity is used
+	
+	// The inputs are lists of positions 
+	void Init(list<double> input_positions_Axis_A, list<double> input_velocities_Axis_A, list<double> input_positions_Axis_B, list<double> input_velocities_Axis_B, uint8 input_Time)
+	{
+		list_of_positions_axis_A = input_positions_Axis_A;
+		list_of_velocities_axis_A = input_velocities_Axis_A;
+		list_of_positions_axis_B = input_positions_Axis_B;
+		list_of_velocities_axis_B = input_velocities_Axis_B;
+		Time = input_Time;
+	}
+
+	const Error *NextSegment(uunit pos[], uunit vel[], uint8 &time)
+	{
+		// If the position lists are not the same size, do not load the points.
+		if (list_of_positions_axis_A.size() != list_of_positions_axis_B.size()) {
+			std::cout << "Position lists must be equal in length." << "\n";
+			return 0;
+		}
+
+        // Arbitrarily monitor Axis A list to determine when to end the 
+        // move by setting the last time value to 0.
+		if (list_of_positions_axis_A.size() == 1) {
+			Time = 0;
+		}
+
+		position_pointer_axis_A = list_of_positions_axis_A.begin();  // Load address of first element in list into pointer (point to first element)
+		velocity_pointer_axis_A = list_of_velocities_axis_A.begin();
+		position_pointer_axis_B = list_of_positions_axis_B.begin();  
+		velocity_pointer_axis_B = list_of_velocities_axis_B.begin();
+		
+		pos[0] = *position_pointer_axis_A; 
+		pos[1] = *position_pointer_axis_B; 
+		vel[0] = *velocity_pointer_axis_A; 
+		vel[1] = *velocity_pointer_axis_B; 
+		time = Time;
+		
+		list_of_positions_axis_A.pop_front();    // delete element that we just loaded (first element is deleted)
+		list_of_velocities_axis_A.pop_front();
+		list_of_positions_axis_B.pop_front();
+		list_of_velocities_axis_B.pop_front();
+		std::cout << "pos A: " << next_position_axis_A << " vel A: " << next_velocity_axis_A << " pos B: " << next_position_axis_B << " vel B: " << next_velocity_axis_B << "\n";
+		return 0;
+	}	
+};
+
+// Generates a list of velocities to be used in a series of PVT points.
+// The PVT points will produce near-constant acceleration, deceleration because
+// of the algorithm used to produce the velocities in this function.
+// 
+// The input of this function is a list of positions. The output of this function
+// is a list of velocities for each position. To avoid generating a following error,
+// set the first position in the input position list equal to the actual motor position.
+// 
+std::list<double> Velocities_Constant_Accel(std::list<double> Position_List, uint8 Time){
+
+	uint8 time_between_points = Time; // 10 ms
+	double convert = time_between_points + 0.0;
+	double T = convert / 1000; // Convert to seconds for calculations
+
+	std::list<double> Velocities_List;
+	for (int i = 0; i < Position_List.size(); i++) {  // creates list of velocities all filled with 0
+		double zero = 0;
+		Velocities_List.push_back(zero);
+	}
+
+	std::list<double>::iterator pntr;
+	std::list<double>::iterator vel_pntr;
+	pntr = Position_List.begin();
+	vel_pntr = Velocities_List.begin();
+
+	vel_pntr = next(vel_pntr, 1);
+
+	for (int j = 1; j < ((Position_List.size()) - 1); j++) {
+		double first_position = *pntr;
+		pntr = next(pntr, 1);
+		double second_position = *pntr;
+		pntr = next(pntr, 1);
+		double third_position = *pntr;
+		second_position = (third_position - first_position) / (2 * T);
+		pntr = prev(pntr, 1);
+		*vel_pntr = second_position;
+		vel_pntr = next(vel_pntr, 1);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		pntr = Position_List.begin();
+		vel_pntr = Velocities_List.begin();
+		for (int ii = 1; ii < Position_List.size() - 2; ii++)
+		{
+			double first_position = *pntr;
+			pntr = next(pntr, 1);
+			double second_position = *pntr;
+			pntr = next(pntr, 1);
+			double third_position = *pntr;
+			pntr = next(pntr, 1);
+			double fourth_position = *pntr;
+			double first_velocity = *vel_pntr;
+			vel_pntr = next(vel_pntr, 3);
+			double fourth_velocity = *vel_pntr;
+			vel_pntr = prev(vel_pntr, 2);
+			*vel_pntr = (((12 * ((third_position)-(first_position))) / T) - (4 * (first_velocity)) + ((3 * ((second_position)-(fourth_position))) / T) + fourth_velocity) / 15;
+			pntr = prev(pntr, 2);
+		}
+
+		pntr = Position_List.end();
+		pntr = prev(pntr, 1);
+		double last_position = *pntr;
+
+		pntr = prev(pntr, 2);
+		double third_to_last_position = *pntr;
+		vel_pntr = Velocities_List.end();
+		vel_pntr = prev(vel_pntr, 3);
+		double third_to_last_velocity = *vel_pntr;
+		vel_pntr = next(vel_pntr, 2);
+		double last_velocity = *vel_pntr;
+		vel_pntr = prev(vel_pntr, 1);
+
+		*vel_pntr = (-3 * third_to_last_position / (4 * T)) + (3 * last_position / (4 * T)) - (third_to_last_velocity / 4) - (last_velocity / 4);
+	}
+	return(Velocities_List);
+}
+
+int main(void)
+{
+	// Time between PVT Points
+	uint8 Time_between_points = 250; // 250ms between points
+
+	// LoadPos function loads position data from two files and generates velocity data
+	Velocity_List_Axis_A = Velocities_Constant_Accel(Position_List_Axis_A, Time_between_points);
+	Velocity_List_Axis_B = Velocities_Constant_Accel(Position_List_Axis_B, Time_between_points);
+
+	/*
+    //print out values of generated velocities
+    int j = 0;
+    for (auto v : Velocity_List_Axis_A) {
+	    j = j + 1;
+	    std::cout << j << " " << v << "\n";
+    }
+    j = 0;
+    for (auto v : Velocity_List_Axis_B) {
+	    j = j + 1;
+	    std::cout << j << " " << v << "\n";
+    }
+    std::cin.get();
+    */
+
+    // The libraries define one global object of type
+    // CopleyMotionLibraries named cml.
+    //
+    // This object has a couple handy member functions
+    // including this one which enables the generation of
+    // a log file for debugging
+    cml.SetDebugLevel(LOG_DEBUG);
+
+    // Create an object used to access the low level CAN network.
+    // This examples assumes that we're using the Copley PCI CAN card.
+#if defined( USE_CAN )
+    CopleyCAN hw("CAN0");
+    hw.SetBaud(canBPS);
+#elif defined( WIN32 )
+    WinUdpEcatHardware hw("192.168.0.100");
+#else
+    LinuxEcatHardware hw("eth0");
+#endif
+
+    // Open the network object
+#if defined( USE_CAN )
+    CanOpen net;
+#else
+    EtherCAT net;
+#endif
+    const Error* err = net.Open(hw);
+    showerr(err, "Opening network");
+
+    // Initialize the amplifiers using default settings
+	Amp amp[2];
+	AmpSettings amp_settings;
+
+	// How to set the guard time. Guard time is 200ms by default.
+	//amp_settings.guardTime = 0; // set guardtime to 0 to disable Node Guarding.
+
+	// ME3 synchPeriod is 2000 ms (2 seconds)
+	//amp_settings.synchPeriod = 2000;
+
+	// Initializing the first axis of a two axis drive
+	printf("Initing Axis %d\n", 1);
+	err = amp[0].Init(net, 1, amp_settings); // address is 1 for first drive on CANopen Network
+
+	showerr(err, "Initing Axis A");
+
+	// Initializing the second axis of a two axis drive
+	printf("Initing Axis %d\n", 2);
+	//err = amp[1].InitSubAxis(amp[0], 2); // uncomment to initialize a sub-axis of an EtherCAT multi-axis 
+	err = amp[1].Init(net, 2, amp_settings); // init axis 2
+	showerr(err, "Initing Axis B");
+
+	// Create a linkage object holding these amps
+	Linkage link;
+	err = link.Init(2, amp);
+	showerr(err, "Linkage init");
+
+	// Example of SDO Upload and SDO Download
+	/*
+	// Set the actual motor position to 0 for all axis using an SDO Download
+	int16 index = 0x6063;
+	int16 sub_index = 0;
+	uint32 data = 0;
+	amp[0].Dnld32(index, sub_index, data);
+	amp[1].Dnld32(index, sub_index, data);
+
+	// Get the actual current value for all axis using an SDO Upload
+	index = 0x6078;
+	sub_index = 0;
+	uint16 current_1, current_2;
+	amp[0].Upld16(index, sub_index, current_1);
+	amp[1].Upld16(index, sub_index, current_2);
+	*/
+
+	// Create my trajectory and send it to the linkage object
+	printf("Sending trajectory to drives\n");
+	PVT_Constant_Accel trj;
+	
+	// Perform the PVT move twice (that's why it's in a loop here)
+	//for (int i = 0; i < 2; i++) {
+
+		//initialize the trajectory by loading the position and velocity lists for all axis with the time interval.
+		trj.Init(Position_List_Axis_A, Velocity_List_Axis_A, Position_List_Axis_B, Velocity_List_Axis_B, Time_between_points);
+
+		// begin the PVT move by sending the trajectory (list of PVT points) to the PVT buffer on the drive
+		err = link.SendTrajectory(trj);
+		showerr(err, "SendTrj");
+
+		// Wait 20 seconds for the move to finish. Set to -1 to wait indefinitely.
+		err = link.WaitMoveDone(-1);
+		showerr(err, "waiting on move");
+	//}
+
+	printf("Move finished, hit enter to quit\n");
+	getchar();
+
+    return 0;
+}
+/**************************************************/
+
+
+static void showerr(const Error* err, const char* str)
+{
+    if (err)
+    {
+        printf("Error %s: %s\n", str, err->toString());
+        exit(1);
+    }
+}

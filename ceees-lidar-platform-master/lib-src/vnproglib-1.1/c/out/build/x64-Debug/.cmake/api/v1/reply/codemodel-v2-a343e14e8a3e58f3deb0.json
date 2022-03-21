@@ -1,0 +1,59 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8.4"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "libvnc",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "libvnc::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-libvnc-Debug-5869728c8413f2857a3c.json",
+					"name" : "libvnc",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/rcoppers/Desktop/Projects/Stabilization Platform/ceees-lidar-platform-master/lib-src/vnproglib-1.1/c/out/build/x64-Debug",
+		"source" : "C:/Users/rcoppers/Desktop/Projects/Stabilization Platform/ceees-lidar-platform-master/lib-src/vnproglib-1.1/c"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

@@ -1,0 +1,28 @@
+Vectornav logging on Raspberry Pi
+
+Need to update python3-dev in order to install vnpy. 
+sudo apt-get install python3-dev
+
+if read-only filesystem pops up, enter:
+sudo mount -o remount,rw /
+or simply type: "fsrw"
+
+The script should be run within screen environment therefore it won't stop after ssh connection is terminnated.
+
+Using screen command:
+1. Type "screen" to open a new screen. 
+2. cd into "~/sen/vn_record" to go into the working directory. 
+3. type "sudo python3 stapla.py"
+4. Press Ctrl-A followed by "d" to exit the screen. 
+5. Type "exit" to exit the ssh connection. 
+6. To re-attach the screen, type "screen -r" to check if program is running.
+
+To archive current files: 
+use "tar" and then ssh back the file. (or filezilla) 
+
+To set time for Raspberry Pi: 
+date -s "4 SEP 2018 22:42:00"
+
+To set internal ip address:
+sudo ifconfig eth0 192.168.1.2 netmask 255.255.255.0
+For this case, use enxb827eb497fca instead of eth0.
