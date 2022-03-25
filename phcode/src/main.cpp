@@ -16,7 +16,7 @@
 
 #include "xsens.h"
 
-using namespace std;
+using namespace std; /* TODO: remove this */
 
 /* Globals */
 
@@ -30,11 +30,17 @@ Journaller *gJournal = 0; // This is needed for XSens sensor
 
 
 
-/********************************************** TODO: see if this can be removed */
+/* TODO: see if this can be removed --> note from Jacob Mazur */
 // E-stop globals
 static const int ESTOP_PIN = 1;
 static volatile bool estopPressed = false;
 static char ipAddress[15] = "0.0.0.0";
+
+/* Brooke notes:
+  static: variable visible only in current file
+  volatilee: object can be changed by something outside the normal execution path
+   ex: the interrupt routine
+*/
 
 
 #ifdef PRODUCTION
@@ -55,7 +61,7 @@ void interrupt_handler(int s) {
 
 
 /**
- * Signal handler which is called when the log file should be reset; 
+ * Signal handler which is called when the log file should be reset;
  * closes the existing log file and creates a new, timestamped one
  */
 void log_cycle_handler(int s) {
@@ -109,17 +115,19 @@ void __gain_tuning_shell(MotorController* mc, Alerts *alerts);
 int main(int argc, char *argv[]) {
 
   #ifdef PRODUCTION
+
+  // Dead Code --> is this necessary? what does it do?
     //if (daemon(1, 0) != 0) {
     //  LOG(0, "Error daemonizing process. Error Number " << errno << ".\n");
     //  std::exit(1);
     //}
     //PIDFile p("/tmp/casper2.pid");
 
-    signal(SIGINT, interrupt_handler);
+   signal(SIGINT, interrupt_handler);
 	 signal(SIGUSR1, log_cycle_handler);
 
   #endif
-  
+
   wiringPiSetup();
   pinMode(ESTOP_PIN, INPUT);
   pullUpDnControl(ESTOP_PIN, PUD_DOWN);
@@ -154,9 +162,9 @@ int main(int argc, char *argv[]) {
 	*/
 
   /* --------------------- */
-  
+
   //cml.SetDebugLevel(LOG_EVERYTHING);
- 
+
   MotorController *mc;
   try {
     mc = new MotorController(alerts);
@@ -179,7 +187,9 @@ int main(int argc, char *argv[]) {
   cout << "Press Ctl+c to stop program...\n";
 
 	std::thread shellThread(__gain_tuning_shell, mc, alerts);
-	
+  // std::thread allows multiple functions to be run at once --> this one runs
+  // __gain_tuning_shell on "mc" and "alerts" and names it shellThread
+
 	//mc->togglePrintLiveInfo(1);
 
   while(!terminate_flag) {
@@ -190,7 +200,7 @@ int main(int argc, char *argv[]) {
 
   }
 
-	shellThread.join();
+	shellThread.join(); // now the .join() command activated the __gain_tuning_shell
 
   //vn->stop();
   mc->stop();
@@ -201,109 +211,14 @@ int main(int argc, char *argv[]) {
 
   return 0;
 
+// previously had a chunk of dead code here --> reference Code Documentation/main.cpp/Old Code
 
-
-/* OLD CODE HERE */
-
-
-/*
-  int done = 0;
-  while (!done) {
-    getBrakeStatus();				// Comment out for no motor control
-    getMotorFaultStatuses();		// Comment out for no motor control
-    printIP();
-    printSeparator();
-    printMotorFaults();				// Comment out for no motor control
-    //printVNStatus();
-    printBrakeStatus();				// Comment out for no motor control
-    //printSharedMemStatus();
-    printSeparator();
-    //printXSData();
-    printSeparator();
-    printEstopStatus();
-    printMenu();
-
-    int choice = 0;
-    while (!(cin>>choice)) {
-      cin.clear();
-      cin.ignore(numeric_limits<streamsize>::max(), '\n');
-      cout << "Please make a valid selection: ";
-    }
-
-    switch (choice) {
-      case 1:
-        setBrake(!brakeStatus);
-        //cout << "Not yet implemented.\n";
-        break;
-      case 2:
-        //cout << "Not yet implemented.\n";
-        clearMotorFaults();
-        break;
-      case 3:
-        if (!brakeStatus)
-          manualMove(1);
-        else
-          cout << "** Brake is ON! **\n";
-        break;
-      case 4:
-        if (!brakeStatus)
-          manualMove(2);
-        else
-          cout << "** Brake is ON! **\n";
-        break;
-      case 5:
-        if (!brakeStatus)
-          done = 1;
-        else
-          cout << "** Brake is ON! **\n";
-        break;
-      case 6:
-        ServiceMode();
-        break;
-      case 7:
-        std::exit(0);
-        break;
-    }
-  }
-
-  MotorController *mc;
-  try {
-    mc = new MotorController(xssm, alerts);
-  } catch (const std::exception &e) {
-    std::cerr << e.what();
-    std::exit(1);
-  };
-
-  cout << "Press Ctl+c to stop program...\n";
-
-	std::thread shellThread(__gain_tuning_shell, mc, xssm, alerts);
-
-  while(!terminate_flag) {
-    getEstopStatus();
-
-    if (estopPressed)
-      terminate_flag = true;
-
-    std::this_thread::yield();
-  }
-
-	shellThread.join();
-
-  //vn->stop();
-  mc->stop();
-
-  delete mc;
-  delete xs;
-  delete alerts;
-
-*/
 }
-
-
 
 
 /**** Function Implementations ****/
 
+// Which library do these functions and struct come from?
 char* getIPAddress(const char* adapter) {
   int fd;
   struct ifreq ifr;
@@ -322,6 +237,7 @@ void printSeparator() {
 }
 
 bool getEstopStatus() {
+  // TODO: fix this debugging remnant
 	// Temporary --> seeing if this works to avoid the Estop
 	return false;
 	// End Temporary
@@ -331,22 +247,24 @@ bool getEstopStatus() {
 }
 
 void printEstopStatus() {
-  getEstopStatus();
+  // TODO: Determine if this function is used, if so, assign output to this function.
+  getEstopStatus(); // Don't you need to save the output in a variable?
+
 
   if (estopPressed) {
     printSeparator();
     cout << "** ESTOP PRESSED! **\n";
     printSeparator();
   }
-
 }
+
 void printIP() {
   cout << "Wired: " << getIPAddress("eth0") << "\n";
   cout << "Wireless: " << getIPAddress("wlan0") << "\n";
 }
 
 void printMotorFaults() {
-  if (motorFaultStatus) {
+  if (motorFaultStatus) { // currently set to false so why / when is this needed?
     if (motorFaultStatus1)
       cout << "Motor 1 is faulted\n";
     if (motorFaultStatus2)
@@ -371,7 +289,7 @@ bool getBrakeStatusMotor(uint16_t ampID) {
 		MotorController mc(2);
 		return mc.getBrakeStatus();
 	}
-	
+
 	/*
   bool status;
   MotorController* mc;
@@ -477,27 +395,28 @@ void printMenu() {
 void ServiceMode() {
 	cout << "Press  'Enter' to show Roll and Pitch Values. Press 'q' to quit.\n";
 	int done = 0;
+
 	while (!done) {
 	  	char choice;
 	  	choice = getchar();
 	  	if (choice == 'q') {
-		 	done = 1;
-		 	break;
-		}
-	  	else {
-			cout << "Press  'Enter' to show Roll and Pitch Values. Press 'q' to quit.\n";
-			printXSData();
+		 	    done = 1;
+		 	      break;
+		  } else {
+			     cout << "Press  'Enter' to show Roll and Pitch Values. Press 'q' to quit.\n";
+			     printXSData();
 	  	}
 	}
+
 	return;
 }
 
-void manualMove(uint16_t ampID) {
+void manualMove(uint16_t ampID) { // optional integer type of exactly 16 bits
   //MotorController* mc;
 
   MotorController mc(ampID);
 
-  cout << "Use 'l' and 'r' to move the motor. Press 'q' to quit.\n";
+  cout << "Use 'l' and 'r' to move the motor (left and right respectively). Press 'q' to quit.\n";
 
   int done = 0;
   while (!done) {
@@ -513,14 +432,14 @@ void manualMove(uint16_t ampID) {
     switch (choice) {
       case 'l':
         //cout << "Left\n";
-		  cin >> val;
+		  cin >> val; // TODO: give prompt for value enter!
         mc.move(val, false);
         usleep(500000);
 		  printXSData();
         break;
       case 'r':
         //cout << "Right\n";
-		  cin >>val;
+		  cin >>val; // TODO: give prompt for value enter!
         mc.move(val, true);
         usleep(500000);
 		  printXSData();
@@ -689,7 +608,7 @@ void __gain_tuning_shell(MotorController* mc, Alerts *alerts) {
 					mc->saveConfigToFlash(2);
 				}
 				break;
-				
+
 			default:
 				std::cout << "Invalid Input" << std::endl;
 		}
@@ -697,4 +616,3 @@ void __gain_tuning_shell(MotorController* mc, Alerts *alerts) {
 	}
 	std::cout << "Exiting Gain Tuning Shell" << std::endl;
 }
-
